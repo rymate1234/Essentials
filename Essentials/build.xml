@@ -81,4 +81,24 @@
 	      </manifest>
 	    </jar>
 	  </target-->
+	<target name="-post-jar">
+		<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="../lib/yguard.jar"/>
+		<yguard>
+			<inoutpair in="../Essentials3/jars/Essentials.jar" out="${dist.dir}/Essentials3-comp.jar" />
+			<shrink>
+				<entrypointjar name="${dist.jar}"/>
+			</shrink>
+		</yguard>
+	    <jar jarfile="${dist.dir}/Essentials.jar">
+	      <zipfileset src="${dist.jar}" />
+        <zipfileset src="${dist.dir}/Essentials3-comp.jar">
+          <exclude name="META-INF/**"/>
+          <exclude name="META-INF*"/>
+          <exclude name="*.yml"/>
+          <exclude name="*.csv"/>
+          <exclude name="*.txt"/>
+          <exclude name="*.properties"/>
+        </zipfileset>
+	    </jar>
+	</target>
 </project>
