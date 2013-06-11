@@ -20,6 +20,7 @@ package com.earth2me.essentials;
 import static com.earth2me.essentials.I18n._;
 import com.earth2me.essentials.api.Economy;
 import com.earth2me.essentials.api.IJails;
+import com.earth2me.essentials.cmdbookimport.CommandBookWarpsImporter;
 import com.earth2me.essentials.commands.IEssentialsCommand;
 import com.earth2me.essentials.commands.NoChargeException;
 import com.earth2me.essentials.commands.NotEnoughArgumentsException;
@@ -238,6 +239,12 @@ public class Essentials extends JavaPlugin implements IEssentials
 		if (getSettings().isDebug())
 		{
 			LOGGER.log(Level.INFO, "Essentials load " + timeroutput);
+		}
+
+		if (getWarps().isEmpty())
+		{
+			CommandBookWarpsImporter i = new CommandBookWarpsImporter("warps.csv", this);
+			i.parse();
 		}
 	}
 
